@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
 
+    // animation states
+    private enum AnimationState { idle, running, jumping, falling };
+    //private AnimationState state = AnimationState.idle; 
+
     // vars determining move and jump speed
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxMoveSpeed = 5f;
@@ -71,23 +75,39 @@ public class PlayerMovement : MonoBehaviour
     // sprite object uses bools "flipX
     private void UpdateAnimationState()
     {
+        AnimationState state;
         // not moving
         if (rb.velocity.x == 0)
         {
-            anim.SetBool("isRunning", false);
+            state = AnimationState.idle;
         }
         //moving right
         else if(rb.velocity.x > 0)
         {
-            anim.SetBool("isRunning", true);
+            state = AnimationState.running;
             sprite.flipX = false;
         }
         //moving left
         else
         {
-            anim.SetBool("isRunning", true);
+            state = AnimationState.running;
             sprite.flipX = true;
         }
+
+        // jumping animation takes priority, so state will be overwritten
+        if(rb.velocity.y > 0.1f)
+        {
+            state = AnimationState.jumping;
+        }else if(rb.velocity.y < -0.1f)
+        {
+            state = AnimationState.falling;
+        }
+
+        // sets the animation integer "state" as state var
+        // need to cast since state is enum AnimationState
+        anim.SetInteger("state", (int)state);
+
+        
 
         // calculate current speed in abs value
         float currSpeed;
