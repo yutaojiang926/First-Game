@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sprite;
+    private BoxCollider2D coll;
 
     // animation states
     private enum AnimationState { idle, running, jumping, falling };
@@ -18,12 +19,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxMoveSpeed = 5f;
     [SerializeField] private float jumpSpeed = 10f;
 
+    [SerializeField] private LayerMask jumpableGround;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        coll = GetComponent<BoxCollider2D>();
         Debug.Log("Hello world");
     }
 
@@ -61,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(dirX * maxMoveSpeed, rb.velocity.y);
         }*/
         //jumping
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpSpeed);
         }
@@ -122,5 +126,11 @@ public class PlayerMovement : MonoBehaviour
         // faster running speed = faster animations
         float animSpeed = currSpeed / maxMoveSpeed;
         anim.SetFloat("runningSpeed", animSpeed);
+    }
+
+    // returns true if touching ground, false otherwise
+    private bool isGrounded()
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
     }
 }

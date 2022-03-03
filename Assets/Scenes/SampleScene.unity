@@ -234,7 +234,8 @@ GameObject:
   - component: {fileID: 1027829431}
   - component: {fileID: 1027829430}
   - component: {fileID: 1027829429}
-  m_Layer: 0
+  - component: {fileID: 1027829432}
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,6 +513,26 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 1, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 6
+      m_TileSpriteIndex: 6
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 1, y: 1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
@@ -526,6 +547,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 026e3fd8670c92447860476916b172be, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 5c72daac511e6134c8abf6e7c8b19530, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: a503dc6f3fa7c1e43ad27e23bdacd81c, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: ba51e4fc22ec0564b83b690e615d4f36, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 7584d6bb868caee47b24d330c3c5b849, type: 3}
@@ -539,8 +564,12 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: fe0fe4dd67749a34f8d9fef85e7c745c, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: bdb0009f0a61d72498d216851eebcdf0, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 2c6da6de413f9d247857d8db01202bc2, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: a5e452d9c123fca4ba97036b370efebe, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 20
+  - m_RefCount: 22
     m_Data:
       e00: 1
       e01: 0
@@ -559,13 +588,13 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 20
+  - m_RefCount: 22
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -4, y: -2, z: 0}
-  m_Size: {x: 10, y: 2, z: 1}
+  m_Size: {x: 10, y: 4, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -596,7 +625,7 @@ CompositeCollider2D:
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4e3c533126e23274f99ce31ca328e87c, type: 2}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
@@ -605,7 +634,13 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 1027829431}
     m_ColliderPaths:
-    - - X: 60000000
+    - - X: 20000041
+        Y: 20000100
+      - X: 9999959
+        Y: 20000100
+      - X: 9999900
+        Y: 20000041
+      - X: 9999900
         Y: 0
       - X: -40000000
         Y: 0
@@ -613,10 +648,20 @@ CompositeCollider2D:
         Y: -20000000
       - X: 60000000
         Y: -20000000
+      - X: 60000000
+        Y: 0
+      - X: 20000100
+        Y: 0
+      - X: 20000100
+        Y: 20000041
   m_CompositePaths:
     m_Paths:
     - - {x: 5.999971, y: -2}
       - {x: 5.999971, y: 0}
+      - {x: 2.00001, y: 0.0000294}
+      - {x: 1.9999748, y: 2.00001}
+      - {x: 0.99999, y: 1.9999748}
+      - {x: 0.9999606, y: 0}
       - {x: -4, y: -0.000029300001}
       - {x: -3.999971, y: -2}
   m_VertexDistance: 0.0005
@@ -658,6 +703,25 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!251 &1027829432
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027829425}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 0
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 1
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &1115213477
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +1052,9 @@ MonoBehaviour:
   moveSpeed: 5
   maxMoveSpeed: 5
   jumpSpeed: 10
+  jumpableGround:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!95 &1295583954
 Animator:
   serializedVersion: 3
