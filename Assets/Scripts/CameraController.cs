@@ -11,6 +11,6 @@ public class CameraController : MonoBehaviour
     {
         // transform refers to the parent's transform
         // follow the player, but keep its original z value
-        transform.position = new Vector3(player.position.x, player.position.y, transform.position.z);
+        transform.position = new Vector3(player.position.x, player.position.y+2, transform.position.z);
     }
 }

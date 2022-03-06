@@ -10,12 +10,20 @@ public class PlayerLife : MonoBehaviour
     private BoxCollider2D coll;
     private Rigidbody2D rb;
     private PolygonCollider2D pcoll;
+    private ItemCollector items;
     private void Start()
     {
         anim = GetComponent<Animator>();
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         pcoll = GetComponent<PolygonCollider2D>();
+        // sets up waiter function
+        StartCoroutine(wait(0f));
+    }
+
+    IEnumerator wait(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
     }
     // on collision
     private void OnCollisionEnter2D(Collision2D collision)
@@ -52,7 +60,8 @@ public class PlayerLife : MonoBehaviour
     // currently called by events in the player death animation
     private void RestartLevel()
     {
-        // loads the active scene (using its name)
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log(SceneManager.GetActiveScene().name);
+        // restarts from level 1
+        SceneManager.LoadScene("Level 1");
     }
 }

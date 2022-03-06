@@ -17,5 +17,21 @@ public class ItemCollector : MonoBehaviour
             coins++;
             coinText.text = "Coins " + coins;
         }
+
+        if (collision.gameObject.CompareTag("Chest"))
+        {
+            collision.gameObject.GetComponent<Animator>().SetBool("Animated", true);
+        }
+    }
+
+    public void setCoin(int number)
+    {
+        coins = number;
+        coinText.text = "Coins " + coins;
+    }
+
+    public int getCoin()
+    {
+        return coins;
     }
 }

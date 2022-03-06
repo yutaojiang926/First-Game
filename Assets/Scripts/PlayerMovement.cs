@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
     private BoxCollider2D coll;
+    private ItemCollector items;
 
     // animation states
     private enum AnimationState { idle, running, jumping, falling };
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
+        items = GetComponent<ItemCollector>();
         Debug.Log("Hello world");
     }
 
@@ -37,37 +39,17 @@ public class PlayerMovement : MonoBehaviour
         //moving left and right
         float dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
-        /*if (dirX == 0)
-        {
-            if (rb.velocity.x > moveSpeed)
-            {
-                rb.velocity = new Vector2(rb.velocity.x - 0.5f *moveSpeed, rb.velocity.y);
-            }
-            else if (rb.velocity.x < -1 * moveSpeed)
-            {
-                rb.velocity = new Vector2(rb.velocity.x + 0.5f *moveSpeed, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-        }
-        else if (rb.velocity.x < maxMoveSpeed - moveSpeed && rb.velocity.x >= 0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x + dirX * moveSpeed, rb.velocity.y);
-        }
-        else if (rb.velocity.x > -1 * (maxMoveSpeed - moveSpeed) && rb.velocity.x <= 0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x + dirX * moveSpeed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(dirX * maxMoveSpeed, rb.velocity.y);
-        }*/
+        
         //jumping
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed + items.getCoin());
+        } 
+        // if we have coins, can consume one to jump in the air
+        else if(Input.GetButtonDown("Jump") && items.getCoin() > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed + items.getCoin());
+            items.setCoin(items.getCoin() - 1);
         }
 
         UpdateAnimationState();

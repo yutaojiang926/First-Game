@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Coin
   - Trap
+  - Restart
+  - Chest
   layers:
   - Default
   - TransparentFX
