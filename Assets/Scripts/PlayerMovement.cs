@@ -20,7 +20,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxMoveSpeed = 5f;
     [SerializeField] private float jumpSpeed = 10f;
 
+    //ground thats considered jumpable
     [SerializeField] private LayerMask jumpableGround;
+
+    // sound effects for player
+    [SerializeField] private AudioSource jumpSoundEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
         items = GetComponent<ItemCollector>();
-        Debug.Log("Hello world");
     }
 
     // Update is called once per frame
@@ -44,12 +47,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed + items.getCoin());
+            jumpSoundEffect.Play();
         } 
         // if we have coins, can consume one to jump in the air
         else if(Input.GetButtonDown("Jump") && items.getCoin() > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed + items.getCoin());
             items.setCoin(items.getCoin() - 1);
+            jumpSoundEffect.Play();
         }
 
         UpdateAnimationState();
@@ -62,22 +67,21 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimationState()
     {
         AnimationState state;
-        // not moving
-        if (rb.velocity.x == 0)
-        {
-            state = AnimationState.idle;
-        }
         //moving right
-        else if(rb.velocity.x > 0)
+        if(rb.velocity.x > 0.1f)
         {
             state = AnimationState.running;
             sprite.flipX = false;
         }
         //moving left
-        else
+        else if(rb.velocity.x < -0.1f)
         {
             state = AnimationState.running;
             sprite.flipX = true;
+        }
+        else 
+        {
+            state = AnimationState.idle;
         }
 
         // jumping animation takes priority, so state will be overwritten

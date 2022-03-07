@@ -8,6 +8,7 @@ TagManager:
   - Trap
   - Restart
   - Chest
+  - Spike
   layers:
   - Default
   - TransparentFX

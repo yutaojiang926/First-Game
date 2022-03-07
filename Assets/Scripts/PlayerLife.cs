@@ -11,6 +11,9 @@ public class PlayerLife : MonoBehaviour
     private Rigidbody2D rb;
     private PolygonCollider2D pcoll;
     private ItemCollector items;
+
+    // sound effects for deaths
+    [SerializeField] private AudioSource spikeDeath;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -28,8 +31,9 @@ public class PlayerLife : MonoBehaviour
     // on collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Trap"))
+        if (collision.gameObject.CompareTag("Spike"))
         {
+            spikeDeath.Play();
             Die();
         }
         
@@ -63,5 +67,7 @@ public class PlayerLife : MonoBehaviour
         Debug.Log(SceneManager.GetActiveScene().name);
         // restarts from level 1
         SceneManager.LoadScene("Level 1");
+        // reload active scene
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
