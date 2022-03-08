@@ -8,6 +8,7 @@ public class ItemCollector : MonoBehaviour
     // coin counter
     private int coins = 0;
     [SerializeField] private Text coinText;
+    [SerializeField] private AudioSource CoinPickup;
 
     // on colliding with box marked with trigger
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,6 +19,8 @@ public class ItemCollector : MonoBehaviour
             Destroy(collision.gameObject);
             coins++;
             coinText.text = "Coins " + coins;
+            CoinPickup.Play();
+
         }
     }
 

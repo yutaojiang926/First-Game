@@ -9,7 +9,6 @@ public class PlayerLife : MonoBehaviour
     private Animator anim;
     private BoxCollider2D coll;
     private Rigidbody2D rb;
-    private PolygonCollider2D pcoll;
     private ItemCollector items;
 
     // sound effects for deaths
@@ -19,7 +18,6 @@ public class PlayerLife : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
-        pcoll = GetComponent<PolygonCollider2D>();
         // sets up waiter function
         StartCoroutine(wait(0f));
     }
@@ -48,7 +46,6 @@ public class PlayerLife : MonoBehaviour
 
         // makes player sprite fall thru map
         coll.enabled = false;
-        pcoll.enabled = false;
 
         // stops player inputs
         GetComponent<PlayerMovement>().enabled = false;

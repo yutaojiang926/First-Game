@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxMoveSpeed = 5f;
     [SerializeField] private float jumpSpeed = 10f;
+    [SerializeField] private float jumpGravity = 2;
+    [SerializeField] private float normalGravity = 3;
 
     //ground thats considered jumpable
     [SerializeField] private LayerMask jumpableGround;
@@ -42,19 +44,26 @@ public class PlayerMovement : MonoBehaviour
         //moving left and right
         float dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
-        
+
         //jumping
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed + items.getCoin());
+            rb.gravityScale = jumpGravity;
             jumpSoundEffect.Play();
-        } 
+        }
         // if we have coins, can consume one to jump in the air
-        else if(Input.GetButtonDown("Jump") && items.getCoin() > 0)
+        else if (Input.GetButtonDown("Jump") && items.getCoin() > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed + items.getCoin());
+            rb.gravityScale = jumpGravity;
             items.setCoin(items.getCoin() - 1);
             jumpSoundEffect.Play();
+        }
+        // if we arent holding the jump key, return gravity to normal
+        else if (!Input.GetButton("Jump") && !isGrounded())
+        {
+            rb.gravityScale = normalGravity;
         }
 
         UpdateAnimationState();
