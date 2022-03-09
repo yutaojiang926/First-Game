@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxMoveSpeed = 5f;
     [SerializeField] private float jumpSpeed = 10f;
+
+    // reduced gravity when jumping
     [SerializeField] private float jumpGravity = 2;
     [SerializeField] private float normalGravity = 3;
 
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //moving left and right
         float dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
@@ -66,6 +69,11 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = normalGravity;
         }
 
+        // falls off the map
+        if(transform.position.y < -5)
+        {
+            GetComponent<PlayerLife>().Die();
+        }
         UpdateAnimationState();
         
     }

@@ -18,14 +18,8 @@ public class PlayerLife : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
-        // sets up waiter function
-        StartCoroutine(wait(0f));
     }
 
-    IEnumerator wait(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
-    }
     // on collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -39,7 +33,7 @@ public class PlayerLife : MonoBehaviour
 
     // when we die, make player bounce and fall thru the map
     // also disables player movement (needs to be reenabled when level restarts
-    private void Die()
+    public void Die()
     {
         // turns on death animation
         anim.SetTrigger("death");
