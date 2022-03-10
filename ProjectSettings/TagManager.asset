@@ -9,6 +9,7 @@ TagManager:
   - Restart
   - Chest
   - Spike
+  - BGM
   layers:
   - Default
   - TransparentFX

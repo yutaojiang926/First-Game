@@ -10,4 +10,6 @@ public class StartMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Level 1");
     }
+
+    
 }
