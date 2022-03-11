@@ -153,7 +153,7 @@ MonoBehaviour:
   moveSpeed: 5
   maxMoveSpeed: 5
   jumpSpeed: 10
-  jumpGravity: 2
+  jumpGravity: 1.5
   normalGravity: 3
   jumpableGround:
     serializedVersion: 2
@@ -214,7 +214,7 @@ AudioSource:
   m_GameObject: {fileID: 6609917128507960248}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5124792642310164482, guid: 56547f1d3b2564a4f9728fd9c1311c90, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7e9ee6dc04a5d40d1a5dfc4beb9865e7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -310,7 +310,7 @@ AudioSource:
   m_GameObject: {fileID: 6609917128507960248}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5124792642310164482, guid: 56547f1d3b2564a4f9728fd9c1311c90, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -406,7 +406,7 @@ AudioSource:
   m_GameObject: {fileID: 6609917128507960248}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5124792642310164482, guid: 56547f1d3b2564a4f9728fd9c1311c90, type: 2}
   m_audioClip: {fileID: 8300000, guid: 881e3f52c86c94f26a60718d35627cd8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

@@ -11,6 +11,11 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D coll;
     private ItemCollector items;
 
+    // number of frames you can still jump after leaving the edge
+    [SerializeField] private int SafeFrames = 10;
+    private int ForgivenessFrames = 10;
+
+
     // animation states
     private enum AnimationState { idle, running, jumping, falling };
     //private AnimationState state = AnimationState.idle; 
@@ -33,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
@@ -43,13 +49,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if game is paused dont do anything
+        if (PauseMenu.gamePaused)
+        {
+            return;
+        }
 
         //moving left and right
         float dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
 
         //jumping
-        if (Input.GetButtonDown("Jump") && isGrounded())
+        if (Input.GetButtonDown("Jump") && (isGrounded() || ForgivenessFrames > 0))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed + items.getCoin());
             rb.gravityScale = jumpGravity;
@@ -75,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<PlayerLife>().Die();
         }
         UpdateAnimationState();
-        
+        Framed();
     }
 
     // animation update
@@ -131,9 +142,18 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("runningSpeed", animSpeed);
     }
 
+    private void Framed()
+    {
+        ForgivenessFrames--;
+    }
     // returns true if touching ground, false otherwise
     private bool isGrounded()
     {
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
+        if( Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround))
+        {
+            ForgivenessFrames = SafeFrames;
+            return true;
+        }
+        return false;
     }
 }
