@@ -10,6 +10,7 @@ TagManager:
   - Chest
   - Spike
   - BGM
+  - Home Prompt
   layers:
   - Default
   - TransparentFX
